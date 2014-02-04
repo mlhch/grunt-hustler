@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"grunt": "~0.4.2",
-		"prettydiff": "~0.0.185"
+		"prettydiff": "0.0.185"
 	},
 	"keywords": [
 		"gruntplugin",
