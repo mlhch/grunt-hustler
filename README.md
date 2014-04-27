@@ -17,7 +17,7 @@
 * [Author](#author)
 * [License](#license)
 
-## What is not grunt-hustler?
+## What is grunt-hustler?
 
 A collection of [grunt](https://github.com/cowboy/grunt) tasks.
 
