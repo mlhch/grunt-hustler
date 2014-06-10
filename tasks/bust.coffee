@@ -13,12 +13,17 @@ module.exports = (grunt) ->
 					true
 			.map (filePath) ->
 				cwd = f.orig.cwd
-				contents = grunt.file.read filePath
-				hash = crypto.createHash('sha1').update(contents).digest('hex').substr(0, 10)
+
 				dir = path.dirname filePath
 				ext = path.extname filePath
 				base = path.basename filePath, ext
 				idir = dir.split(cwd)[1]
+
+				contents = grunt.file.read filePath
+				hash = crypto.createHash('sha1').update(contents).digest('hex').substr(0, 10)
+
+				if base.indexOf(hash) > -1
+					return grunt.verbose.ok "#{filePath} already contains a hashed name"
 
 				newFileName = "/#{idir}/#{base}.#{hash}#{ext}"
 				newFilePath = path.join dir, "#{base}.#{hash}#{ext}"
