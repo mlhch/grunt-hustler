@@ -143,15 +143,17 @@ module.exports = (grunt) ->
 		req = @data.require
 
 		createRequire = ->
-			return if !req
+			if req is 'NGBOOTSTRAP'
+				req = 'bootstrap.coffee'
+				template = getTemplate 'bootstrap.coffee'
+				compiled = grunt.template.process template
+				dest = path.resolve cwd, req
 
-			req = 'bootstrap.coffee' if req is 'NGBOOTSTRAP'
-			template = getTemplate 'bootstrap.coffee'
-			compiled = grunt.template.process template
-			dest = path.resolve cwd, req
-
-			removeFromFiles req
-			grunt.file.write dest, compiled
+				removeFromFiles req
+				console.log "writing file #{dest}"
+				grunt.file.write dest, compiled
+			else
+				req = 'bootstrap.coffee'
 
 		createRequire()
 
@@ -207,6 +209,7 @@ module.exports = (grunt) ->
 		processShim = ->
 			template = getTemplate mainFileName
 			trimmedRequire = getFileNameWithoutExtension req
+			console.log 'trimmedRequire', trimmedRequire
 
 			config =
 				shim: JSON.stringify(shim)
